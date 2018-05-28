@@ -14,21 +14,35 @@
  * limitations under the License.
  */
 
-package com.gkatzioura.queue.worker
+package com.queueworker
+
+import java.io.File
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import com.gkatzioura.queue.worker.WorkerType.WorkerType
-import com.typesafe.config.Config
+import com.typesafe.config.{Config, ConfigFactory}
 
-trait QueueWorker {
-}
+object WorkerQueueApp extends App {
 
-object QueueWorker {
 
-  def apply(workerType: WorkerType,config: Config) (implicit actorSystem: ActorSystem, actorMaterializer: ActorMaterializer): QueueWorker = {
+  val configuration = getConfiguration()
+  val workerTypeVal = configuration.getString("worker.type")
+  val workerType = WorkerType.withName(workerTypeVal)
 
-    if(workerType==WorkerType.AMAZON_SQS) new SQSWorker(config)
-    else throw new IllegalArgumentException("Provide a valid worker");
+  implicit val actorSystem = ActorSystem()
+  implicit val actorMaterializer = ActorMaterializer()
+
+  QueueWorker(workerType,configuration)
+
+  def getConfiguration(): Config = {
+
+    val workerFile = new File("/etc/worker/worker.conf");
+
+    if(workerFile.exists) {
+      ConfigFactory.parseFile(workerFile)
+    } else {
+      ConfigFactory.parseResources("worker.conf").resolve()
+    }
   }
+
 }

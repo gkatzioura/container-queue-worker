@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gkatzioura.queue.worker
+package com.queueworker
 
 import akka.actor.ActorSystem
 import akka.event.Logging

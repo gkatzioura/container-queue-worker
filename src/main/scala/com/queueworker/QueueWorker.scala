@@ -14,11 +14,21 @@
  * limitations under the License.
  */
 
-package com.gkatzioura.queue.worker
+package com.queueworker
 
-object WorkerType extends Enumeration {
-  type WorkerType = Value
-  val AMAZON_SQS = Value("sqs")
-  val AZURE_STORAGE_QUEUE = Value("azure_storage_queue")
-  val GOOGLE_PUB_SUB = Value("google_pub_sub")
+import akka.actor.ActorSystem
+import akka.stream.ActorMaterializer
+import WorkerType.WorkerType
+import com.typesafe.config.Config
+
+trait QueueWorker {
+}
+
+object QueueWorker {
+
+  def apply(workerType: WorkerType,config: Config) (implicit actorSystem: ActorSystem, actorMaterializer: ActorMaterializer): QueueWorker = {
+
+    if(workerType==WorkerType.AMAZON_SQS) new SQSWorker(config)
+    else throw new IllegalArgumentException("Provide a valid worker");
+  }
 }

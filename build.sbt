@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-name := "queue-worker"
+name := "container-queue-worker"
 
 version := "0.1"
 
@@ -33,7 +33,7 @@ libraryDependencies ++= Seq(
   "com.google.code.gson" % "gson" % "2.8.5"
 )
 
-mainClass in Compile := Some("com.gkatzioura.queue.worker.WorkerQueueApp")
+mainClass in Compile := Some("com.queueworker.WorkerQueueApp")
 
 enablePlugins(JavaAppPackaging)
 enablePlugins(DockerPlugin)
