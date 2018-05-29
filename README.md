@@ -10,9 +10,6 @@ worker {
   server-endpoint = http://{docker-service}
   aws {
     queue-endpoint =  http://{amazon queue endpoint}
-    region = {aws region}
-    accessKey = {aws access key}
-    secretKey = {aws secret key}
   }
 }
 ```
@@ -23,10 +20,17 @@ Another way is to configure the queue worker using environmental variables
 WORKER_TYPE=sqs
 WORKER_SERVER_ENDPOINT=http://{docker-service}
 WORKER_AWS_QUEUE_ENDPOINT=http://{amazon queue endpoint}
-WORKER_AWS_REGION={aws region}
-WORKER_AWS_ACCESS_KEY={aws access key}
-WORKER_AWS_SECRET_KEY={aws secret key}
 ```
+
+Keep in mind that you should provide the aws credentials configuration through environment variables
+This has to be done regardless of the configuration approach that you have used. 
+
+```
+AWS_DEFAULT_REGION: eu-west-1
+AWS_ACCESS_KEY_ID: access-key
+AWS_SECRET_ACCESS_KEY: secret-key
+```
+
 
 
 Licensed under Apache, Version 2.0

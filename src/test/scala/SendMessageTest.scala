@@ -29,7 +29,7 @@ class SendMessageTest extends FunSuite{
   val accessKey = "x";
   val secretKey = "x";
 
-  test("Send a message") {
+  test("Sending a message") {
 
     val client = AmazonSQSClientBuilder.standard()
       .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)))

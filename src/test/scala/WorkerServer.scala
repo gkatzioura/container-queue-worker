@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package com.gkatzioura.kubernetes.worker.queue
-
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.model._
+import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives._
 import akka.stream.ActorMaterializer
 
 import scala.io.StdIn
 
-object TestServer {
+object WorkerServer {
 
   def main(args: Array[String]) {
 

@@ -1,0 +1,35 @@
+version: '3.5'
+networks:
+  queue-worker-network:
+    name: queue-worker-network
+services:
+  worker-server:
+    build:
+      context: ./worker-server
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - queue-worker-network
+  elasticmq:
+    build:
+      context: ./elasticmq
+      dockerfile: Dockerfile
+    ports:
+      - 9324:9324
+    networks:
+      - queue-worker-network
+  container-queue-worker:
+    image: container-queue-worker:0.1
+    depends_on:
+      - elasticmq
+      - worker-server
+    environment:
+      WORKER_TYPE: sqs
+      WORKER_SERVER_ENDPOINT: http://worker-server:8080/
+      WORKER_AWS_QUEUE_ENDPOINT: http://elasticmq:9324/queue/test-queue
+      AWS_DEFAULT_REGION: eu-west-1
+      AWS_ACCESS_KEY_ID: access-key
+      AWS_SECRET_ACCESS_KEY: secret-key
+    networks:
+      - queue-worker-network
