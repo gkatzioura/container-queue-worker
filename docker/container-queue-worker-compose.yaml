@@ -20,7 +20,7 @@ services:
     networks:
       - queue-worker-network
   container-queue-worker:
-    image: container-queue-worker:0.1
+    image: gkatzioura/container-queue-worker:0.1
     depends_on:
       - elasticmq
       - worker-server

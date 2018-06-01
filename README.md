@@ -31,6 +31,6 @@ AWS_ACCESS_KEY_ID: access-key
 AWS_SECRET_ACCESS_KEY: secret-key
 ```
 
-
+The image is available on [dockerhub](https://hub.docker.com/r/gkatzioura/container-queue-worker/) 
 
 Licensed under Apache, Version 2.0
